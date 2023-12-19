@@ -1,0 +1,36 @@
+
+@startuml
+
+actor Tenants
+participant TenantController
+database MongoDB
+
+Tenants -> TenantController: GET /tenants
+TenantController -> TenantServiceImpl: getTenants()
+TenantServiceImpl -> MongoTemplate: find(query, Tenant.class)
+MongoTemplate --> TenantServiceImpl: List<Tenant>
+TenantServiceImpl --> TenantController: GenericResult<Page<Tenant>>
+TenantController --> Tenants: ResponseEntity<GenericResult<Page<Tenant>>>
+
+Tenants -> TenantController: POST /tenants
+TenantController -> TenantServiceImpl: createTenants(List<Tenant> newTenants)
+TenantServiceImpl -> SequenceGeneratorService: getSeqNumber("tenant_sequence")
+SequenceGeneratorService --> TenantServiceImpl: int id
+TenantServiceImpl -> MongoTemplate: save(tenants)
+TenantController --> Tenants: ResponseEntity<GenericResult<?>>
+
+Tenants -> TenantController: PUT /tenants
+TenantController -> TenantServiceImpl: updateTenant(List<Tenant> updates)
+TenantServiceImpl -> MongoTemplate: exists(query, Tenant.class)
+TenantServiceImpl -> MongoTemplate: updateFirst(query, updateQuery, Tenant.class)
+TenantController --> Tenants: ResponseEntity<GenericResult<String>>
+TenantController --> Tenants: ResponseEntity<GenericResult<String>> (Tenant not found)
+
+Tenants -> TenantController: DELETE /tenants
+TenantController -> TenantServiceImpl: deleteTenant(List<Integer> delIds)
+TenantServiceImpl -> MongoTemplate: exists(query, Tenant.class)
+TenantServiceImpl -> MongoTemplate: remove(query, Tenant.class)
+TenantController --> Tenants: ResponseEntity<GenericResult<String>>
+TenantController --> Tenants: ResponseEntity<GenericResult<String>> (Tenant not found)
+
+@enduml
