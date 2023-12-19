@@ -1,6 +1,6 @@
 # Tenant Management
  
-This project is a User Management System implemented in Java using the Spring Boot framework with MongoDB as the database. It provides RESTful APIs for managing user data, including CRUD operations and user authentication.
+This project is a Tenant Management implemented in Java using the Spring Boot framework with MongoDB as the database. It provides RESTful APIs for managing user data, including CRUD operations and user authentication.
  
 ## Table of Contents
 - [Project Structure](#project-structure)
@@ -33,13 +33,13 @@ The project is organized into several packages:
 - **Slf4j:** Simple Logging Facade for Java, used for logging.
  
 ## Setup and Configuration
-1. Clone the repository: `git clone https://github.com/yourusername/UserManagement.git`
+1. Clone the repository: `git clone https://github.com/srishruthib/TenantAdmin
 2. Open the project in your preferred IDE (e.g., IntelliJ, Eclipse).
 3. Configure the MongoDB connection in `application.properties`.
 4. Run the `TenantAdminApplication` class to start the Spring Boot application.
  
 ## API Documentation
-The API documentation can be found in the [TenantController](src/main/java/Management/TenantAdmin/Controller/TenantController.java) class. It includes endpoints for retrieving, creating, updating, and deleting users.
+The API documentation can be found in the [TenantController](src/main/java/Management/TenantAdmin/Controller/TenantController.java) class. It includes endpoints for retrieving, creating, updating, and deleting tenants.
  
 ## Security
 The application uses Spring Security for authentication and authorization. Users are defined in-memory with roles (USER, ADMIN). APIs are secured with role-based access control.
